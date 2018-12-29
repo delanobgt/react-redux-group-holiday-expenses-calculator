@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
-import example from './example'
+import person from './person'
 
 const rootReducer = combineReducers({
-  example,
+  person,
 })
 
 export default rootReducer

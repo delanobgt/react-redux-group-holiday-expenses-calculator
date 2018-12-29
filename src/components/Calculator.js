@@ -1,21 +1,41 @@
 import React, { Component } from 'react'
-import * as exampleActions from '../actions/example'
+import { connect } from 'react-redux'
 
-export default class App extends Component {
+import Person from './Person'
+import CreatePerson from './CreatePerson'
+
+class Calculator extends Component {
 
   state = {
-
+    
   }
 
   componentDidMount() {
-    exampleActions.getExample(error => {
-      // callback code
-    })
+    
+  }
+
+  renderPersons() {
+    const { persons } = this.props
+    console.log(persons)
+    return persons.map(person => <Person key={person.id} person={person}/>)
   }
 
   render() {
     return (
-      <div>React simple starter</div>
+      <div>
+        {this.renderPersons()}
+        <CreatePerson />
+      </div>
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    persons: state.person.persons
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(Calculator)
