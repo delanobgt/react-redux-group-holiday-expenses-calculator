@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { Component, Fragment } from 'react'
 import { Button, Card, CardBody, Collapse, Col } from 'reactstrap'
 import { Form, FormGroup, Input, Label } from 'reactstrap'
@@ -5,9 +6,11 @@ import { InputGroup, InputGroupAddon } from 'reactstrap'
 import { MdDelete, MdExpandMore, MdExpandLess, MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { connect } from 'react-redux'
 
+import { formatRupiah } from '../helper'
 import Expense from './Expense'
 import CreateExpense from './CreateExpense'
 import * as personActions from '../actions/person'
+import * as modalActions from '../actions/modal'
 
 class Person extends Component {
 
@@ -48,8 +51,13 @@ class Person extends Component {
 
   handleDeleteClick = e => {
     e.preventDefault()
-    const { id } = this.state
-    this.props.deletePerson(id)
+    const { id, fullname } = this.props.person
+    this.props.showConfirmModal(
+      { 
+        message: <div>Delete <span className="text-primary">{fullname}</span>?</div>,
+        yesCallback: () => this.props.deletePerson(id)
+      }
+    )
   }
 
   handleMoveUpClick = e => {
@@ -77,10 +85,20 @@ class Person extends Component {
 
   render() {
     const { fullname, editting, collapseOpen } = this.state
-    const { topmost, bottommost } = this.props
+    const { topmost, bottommost, person, persons } = this.props
+
+    const totalExpenses = _.chain(persons)
+      .flatMap(person => person.expenses)
+      .reduce((acc, expense) => acc + parseInt(expense.value), 0)
+      .value()
+    const totalExpense = _.chain(person.expenses)
+      .reduce((acc, expense) => acc + parseInt(expense.value), 0)
+      .value()
+    const mustPay = (totalExpenses / persons.length) - totalExpense
+
     return (
       <div className="mb-4">
-        <Card>
+        <Card className="bg-light">
           <CardBody>
             <Form onSubmit={this.handleFormSubmit}>
               <FormGroup row>
@@ -106,6 +124,18 @@ class Person extends Component {
                       }
                     </InputGroupAddon>
                   </InputGroup>
+                  <p>
+                    Paid: {formatRupiah(totalExpense)} &nbsp;
+                    { 
+                      mustPay === 0 ? (
+                        <span className="text-success">(Done)</span>
+                      ) : mustPay > 0 ? (
+                        <span className="text-primary">(Must Pay {formatRupiah(mustPay)})</span>
+                      ) : (
+                        <span className="text-danger">(Must Receive {formatRupiah(-mustPay)})</span>
+                      )
+                    }
+                  </p>
                 </Col>
 
                 <Col sm={4} className="text-right">
@@ -137,7 +167,13 @@ class Person extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    persons: state.person.persons
+  }
+}
+
 export default connect(
-  null,
-  { ...personActions }
+  mapStateToProps,
+  { ...personActions, ...modalActions }
 )(Person)

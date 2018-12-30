@@ -1,23 +1,27 @@
-import React, { Component } from 'react'
-import { Container, Col, Jumbotron, Row } from 'reactstrap'
+import React, { Component, Fragment } from 'react'
+import { Container, Col, Row } from 'reactstrap'
 
+import JumbotronDisplay from './JumbotronDisplay'
+import DownloadBox from './DownloadBox'
 import Calculator from './Calculator'
+import ConfirmModal from './modals/ConfirmModal'
 
 export default class App extends Component {
   render() {
     return (
-      <Container>
-        <Row>
-          <Col>
-            <Jumbotron className="mt-4 mb-4">
-              <h3 className="display-5">Group Holiday Expenses Calculator</h3>
-              <p className="lead">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
-            </Jumbotron>
+      <Fragment>
+        <Container>
+          <Row>
+            <Col>
+              <JumbotronDisplay />
+              <DownloadBox />
+              <Calculator />
+            </Col>
+          </Row>
+        </Container>
 
-            <Calculator />
-          </Col>
-        </Row>
-      </Container>
+        <ConfirmModal />
+      </Fragment>
     )
   }
 }

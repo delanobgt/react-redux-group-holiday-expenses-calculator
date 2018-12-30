@@ -4,7 +4,9 @@ import { Form, FormGroup, Input } from 'reactstrap'
 import { MdDelete } from 'react-icons/md'
 import { connect } from 'react-redux'
 
+import { formatRupiah } from '../helper'
 import * as personActions from '../actions/person'
+import * as modalActions from '../actions/modal'
 
 class Expense extends Component {
 
@@ -48,8 +50,13 @@ class Expense extends Component {
 
   handleDeleteClick = e => {
     e.preventDefault()
-    const { personId, id } = this.state
-    this.props.deleteExpense(personId, id)
+    const { personId, id, info, value } = this.props.expense
+    this.props.showConfirmModal(
+      { 
+        message: <div>Delete <span className="text-primary">{info} ({value})</span>?</div>,
+        yesCallback: () => this.props.deleteExpense(personId, id)
+      }
+    )
   }
 
   render() {
@@ -75,10 +82,10 @@ class Expense extends Component {
                 <Col sm={3}>
                   <Input
                     placeholder="Value"
-                    type="number"
+                    type={ editting ? 'number' : 'text' }
                     readOnly={!editting}
                     onChange={this.handleTextChange('value')}
-                    value={value}
+                    value={ editting ? value : formatRupiah(+value) }
                   />
                 </Col>
                 <Col sm={3} className="text-right">
@@ -87,7 +94,7 @@ class Expense extends Component {
                       editting ? (
                         <Fragment>
                           <Button type="submit" color="success" outline>Save</Button>
-                          <Button type="button" color="danger" outline onClick={this.handleCancelClick}>Cancel</Button>
+                          <Button type="button" color="danger" className="ml-1" outline onClick={this.handleCancelClick}>Cancel</Button>
                         </Fragment>
                       ) : (
                         <Button type="button" color="primary" outline onClick={this.handleEditClick}>Edit</Button>
@@ -109,5 +116,5 @@ class Expense extends Component {
 
 export default connect(
   null,
-  { ...personActions }
+  { ...personActions, ...modalActions }
 )(Expense)

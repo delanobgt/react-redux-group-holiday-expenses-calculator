@@ -20,9 +20,10 @@ export const emptyPerson = () => {
   }
 }
 
-export const getPerson = () => {
+export const getPerson = (persons) => {
   return {
-    type: PERSON_GET
+    type: PERSON_GET,
+    payload: { persons }
   }
 }
 

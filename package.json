@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.2.1",
+    "js-file-download": "^0.4.4",
     "lodash": "^4.17.11",
     "moment": "^2.23.0",
     "react": "^16.7.0",

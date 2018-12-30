@@ -29,7 +29,7 @@ class CreatePerson extends Component {
 
     return (
       <div className="mb-5">
-        <Card>
+        <Card className="bg-light">
           <CardBody>
             <Form onSubmit={this.handleFormSubmit}>
               <FormGroup row>
