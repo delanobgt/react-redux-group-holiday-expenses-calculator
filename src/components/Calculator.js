@@ -16,8 +16,14 @@ class Calculator extends Component {
 
   renderPersons() {
     const { persons } = this.props
-    console.log(persons)
-    return persons.map(person => <Person key={person.id} person={person}/>)
+    return persons.map((person, index) => 
+      <Person 
+        key={person.id} 
+        person={person} 
+        topmost={index === 0} 
+        bottommost={index === persons.length - 1}
+      />
+    )
   }
 
   render() {

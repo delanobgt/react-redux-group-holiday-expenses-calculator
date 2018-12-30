@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
-import { Button, Card, CardBody, CardText, Collapse, Col } from 'reactstrap'
-import { Form, FormGroup, Input } from 'reactstrap'
-import { InputGroup, Label } from 'reactstrap'
-import { MdDelete, MdExpandMore, MdExpandLess, MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
+import { Button, Card, CardBody, Col } from 'reactstrap'
+import { Form, FormGroup, Input, Label } from 'reactstrap'
 import { connect } from 'react-redux'
 
 import * as personActions from '../actions/person'
-
 
 class CreatePerson extends Component {
 
@@ -22,7 +19,8 @@ class CreatePerson extends Component {
     e.preventDefault()
     const { createPerson } = this.props
     const { fullname } = this.state
-    createPerson({ fullname })
+    const cleanedFullname = fullname.trim()
+    createPerson({ fullname: cleanedFullname })
     this.setState({ fullname: '' })
   }
 

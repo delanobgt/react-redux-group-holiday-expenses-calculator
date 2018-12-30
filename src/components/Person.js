@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from 'react'
-import { Button, Card, CardBody, CardText, Collapse, Col } from 'reactstrap'
-import { Form, FormGroup, Input } from 'reactstrap'
+import { Button, Card, CardBody, Collapse, Col } from 'reactstrap'
+import { Form, FormGroup, Input, Label } from 'reactstrap'
 import { InputGroup, InputGroupAddon } from 'reactstrap'
 import { MdDelete, MdExpandMore, MdExpandLess, MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { connect } from 'react-redux'
 
+import Expense from './Expense'
+import CreateExpense from './CreateExpense'
 import * as personActions from '../actions/person'
 
 class Person extends Component {
@@ -27,7 +29,9 @@ class Person extends Component {
   handleFormSubmit = e => {
     e.preventDefault()
     const { id, fullname } = this.state
-    personActions.updatePerson(id, { fullname })
+    const cleanedFullname = fullname.trim()
+    this.props.updatePerson(id, { fullname: cleanedFullname })
+    this.setState({ fullname: cleanedFullname })
     this.setState({ editting: false })
   }
 
@@ -43,30 +47,37 @@ class Person extends Component {
   }
 
   handleDeleteClick = e => {
-    console.log('lol')
     e.preventDefault()
     const { id } = this.state
-    personActions.deletePerson(id)
+    this.props.deletePerson(id)
   }
 
   handleMoveUpClick = e => {
     e.preventDefault()
     const { id } = this.state
-    personActions.moveUpPerson(id)
+    this.props.moveUpPerson(id)
   }
 
   handleMoveDownClick = e => {
     e.preventDefault()
     const { id } = this.state
-    personActions.moveDownPerson(id)
+    this.props.moveDownPerson(id)
   }
 
   toggleCollapse = () => {
     this.setState(state => ({ collapseOpen: !state.collapseOpen }))
   }
 
+  renderExpenses() {
+    const { person } = this.props
+    return person.expenses.map((expense, index) => 
+      <Expense key={expense.id} person={person} expense={expense} orderNumber={index + 1}/>
+    )
+  }
+
   render() {
     const { fullname, editting, collapseOpen } = this.state
+    const { topmost, bottommost } = this.props
     return (
       <div className="mb-4">
         <Card>
@@ -74,6 +85,7 @@ class Person extends Component {
             <Form onSubmit={this.handleFormSubmit}>
               <FormGroup row>
                 <Col sm={8}>
+                  <Label>Full Name</Label>
                   <InputGroup>
                     <Input
                       placeholder="Full Name"
@@ -85,11 +97,11 @@ class Person extends Component {
                       {
                         editting ? (
                           <Fragment>
-                            <Button type="submit" color="secondary" outline>Save</Button>
-                            <Button type="button" color="secondary" outline onClick={this.handleCancelClick}>Cancel</Button>
+                            <Button type="submit" color="success" outline>Save</Button>
+                            <Button type="button" color="danger" outline onClick={this.handleCancelClick}>Cancel</Button>
                           </Fragment>
                         ) : (
-                          <Button type="button" color="secondary" outline onClick={this.handleEditClick}>Edit</Button>
+                          <Button type="button" color="primary" outline onClick={this.handleEditClick}>Edit</Button>
                         )
                       }
                     </InputGroupAddon>
@@ -97,28 +109,26 @@ class Person extends Component {
                 </Col>
 
                 <Col sm={4} className="text-right">
-                  <Button type="button" color="link" onClick={this.handleDeleteClick}>
+                  <Button type="button" color="danger" outline className="ml-1" onClick={this.handleDeleteClick}>
                     <MdDelete />
                   </Button>
-                  <Button type="button" color="link" onClick={this.handleMoveUpClick}>
+                  <Button type="button" color="primary" outline disabled={topmost} className="ml-1" onClick={this.handleMoveUpClick}>
                     <MdArrowDropUp />
                   </Button>
-                  <Button type="button" color="link" onClick={this.handleMoveUpClick}>
+                  <Button type="button" color="primary" outline disabled={bottommost} className="ml-1" onClick={this.handleMoveDownClick}>
                     <MdArrowDropDown />
                   </Button>
-                  <Button type="button" color="link" onClick={this.toggleCollapse}>
+                  <Button type="button" color="primary" outline className="ml-1" onClick={this.toggleCollapse}>
                     { collapseOpen ? <MdExpandLess /> : <MdExpandMore /> }
                   </Button>
                 </Col>
               </FormGroup>
             </Form>
 
-            <CardText>
-              Paid 40.000
-            </CardText>
-
             <Collapse isOpen={collapseOpen}>
-              Collapse me.
+              <p>List of Expenses</p>
+              {this.renderExpenses()}
+              <CreateExpense person={this.props.person} />
             </Collapse>
           </CardBody>
         </Card>
