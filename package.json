@@ -2,6 +2,10 @@
   "name": "react-redux-group-holiday-expenses-calculator",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "6.5.0",
+    "node": "10.15.0"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.2.1",
