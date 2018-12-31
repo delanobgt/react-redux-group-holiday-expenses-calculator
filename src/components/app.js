@@ -5,6 +5,7 @@ import JumbotronDisplay from './JumbotronDisplay'
 import DownloadBox from './DownloadBox'
 import Calculator from './Calculator'
 import ConfirmModal from './modals/ConfirmModal'
+import InputModal from './modals/InputModal'
 
 export default class App extends Component {
   render() {
@@ -21,6 +22,7 @@ export default class App extends Component {
         </Container>
 
         <ConfirmModal />
+        <InputModal />
       </Fragment>
     )
   }

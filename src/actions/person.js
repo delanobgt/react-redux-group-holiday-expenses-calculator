@@ -2,7 +2,7 @@ import { guid } from '../helper'
 
 // type of actions
 export const PERSON_EMPTY = 'PERSON_EMPTY'
-export const PERSON_GET = 'PERSON_GET'
+export const PERSON_LOAD = 'PERSON_LOAD'
 export const PERSON_CREATE = 'PERSON_CREATE'
 export const PERSON_UPDATE = 'PERSON_UPDATE'
 export const PERSON_DELETE = 'PERSON_DELETE'
@@ -20,9 +20,9 @@ export const emptyPerson = () => {
   }
 }
 
-export const getPerson = (persons) => {
+export const loadPerson = (persons) => {
   return {
-    type: PERSON_GET,
+    type: PERSON_LOAD,
     payload: { persons }
   }
 }

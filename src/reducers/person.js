@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { 
   PERSON_EMPTY,
-  PERSON_GET,
+  PERSON_LOAD,
   PERSON_CREATE,
   PERSON_UPDATE,
   PERSON_DELETE,
@@ -39,8 +39,9 @@ export default function(state = INITIAL_STATE, action) {
     case PERSON_EMPTY: {
       return { ...state, persons: [] }
     }
-    case PERSON_GET: {
-      return { ...state, persons: [] }
+    case PERSON_LOAD: {
+      const { persons } = action.payload
+      return { ...state, persons }
     }
     case PERSON_CREATE: {
       const { id, fullname } = action.payload
