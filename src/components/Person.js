@@ -104,7 +104,7 @@ class Person extends Component {
               <FormGroup row>
                 <Col sm={8}>
                   <Label>Full Name</Label>
-                  <InputGroup>
+                  <InputGroup className="mb-2">
                     <Input
                       placeholder="Full Name"
                       readOnly={!editting}
@@ -125,30 +125,30 @@ class Person extends Component {
                     </InputGroupAddon>
                   </InputGroup>
                   <p>
-                    Paid: {formatRupiah(totalExpense)} &nbsp;
+                    Paid: {formatRupiah(totalExpense || 0)} &nbsp;
                     { 
                       mustPay === 0 ? (
                         <span className="text-success">(Done)</span>
                       ) : mustPay > 0 ? (
-                        <span className="text-primary">(Must Pay {formatRupiah(mustPay)})</span>
+                        <span className="text-primary">(Must Pay {formatRupiah(mustPay || 0)})</span>
                       ) : (
-                        <span className="text-danger">(Must Receive {formatRupiah(-mustPay)})</span>
+                        <span className="text-danger">(Must Receive {formatRupiah(-(mustPay || 0))})</span>
                       )
                     }
                   </p>
                 </Col>
 
                 <Col sm={4} className="text-right">
-                  <Button type="button" color="danger" outline className="ml-1" onClick={this.handleDeleteClick}>
+                  <Button type="button" color="danger" outline className="mb-1 ml-1" onClick={this.handleDeleteClick}>
                     <MdDelete />
                   </Button>
-                  <Button type="button" color="primary" outline disabled={topmost} className="ml-1" onClick={this.handleMoveUpClick}>
+                  <Button type="button" color="primary" outline disabled={topmost} className="mb-1 ml-1" onClick={this.handleMoveUpClick}>
                     <MdArrowDropUp />
                   </Button>
-                  <Button type="button" color="primary" outline disabled={bottommost} className="ml-1" onClick={this.handleMoveDownClick}>
+                  <Button type="button" color="primary" outline disabled={bottommost} className="mb-1 ml-1" onClick={this.handleMoveDownClick}>
                     <MdArrowDropDown />
                   </Button>
-                  <Button type="button" color="primary" outline className="ml-1" onClick={this.toggleCollapse}>
+                  <Button type="button" color="primary" outline className="mb-1 ml-1" onClick={this.toggleCollapse}>
                     { collapseOpen ? <MdExpandLess /> : <MdExpandMore /> }
                   </Button>
                 </Col>

@@ -77,6 +77,7 @@ class Expense extends Component {
                     readOnly={!editting}
                     onChange={this.handleTextChange('info')}
                     value={info}
+                    className="mb-2"
                   />
                 </Col>
                 <Col sm={3}>
@@ -86,6 +87,7 @@ class Expense extends Component {
                     readOnly={!editting}
                     onChange={this.handleTextChange('value')}
                     value={ editting ? value : formatRupiah(+value) }
+                    className="mb-2"
                   />
                 </Col>
                 <Col sm={3} className="text-right">
@@ -93,14 +95,14 @@ class Expense extends Component {
                     {
                       editting ? (
                         <Fragment>
-                          <Button type="submit" color="success" outline>Save</Button>
-                          <Button type="button" color="danger" className="ml-1" outline onClick={this.handleCancelClick}>Cancel</Button>
+                          <Button type="submit" color="success" className="mb-1" outline>Save</Button>
+                          <Button type="button" color="danger" className="mb-1 ml-1" outline onClick={this.handleCancelClick}>Cancel</Button>
                         </Fragment>
                       ) : (
-                        <Button type="button" color="primary" outline onClick={this.handleEditClick}>Edit</Button>
+                        <Button type="button" color="primary" className="mb-1" outline onClick={this.handleEditClick}>Edit</Button>
                       )
                     }
-                    <Button type="button" color="danger" outline className="ml-1" onClick={this.handleDeleteClick}>
+                    <Button type="button" color="danger" outline className="mb-1 ml-1" onClick={this.handleDeleteClick}>
                       <MdDelete />
                     </Button>
                   </div>

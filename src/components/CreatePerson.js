@@ -43,7 +43,7 @@ class CreatePerson extends Component {
                   />
                 </Col>
                 <Col sm={4} className="text-right">
-                  <Button type="submit" color="primary">Add</Button>
+                  <Button type="submit" className="mt-2" color="primary">Add</Button>
                 </Col>
               </FormGroup>
             </Form>

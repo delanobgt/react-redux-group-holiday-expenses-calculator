@@ -1,0 +1,55 @@
+[
+  {
+    "id": "aea5eadb-496d-407d-fad6-d05d4a56baa3",
+    "fullname": "Irvin Delano",
+    "expenses": [
+      {
+        "id": "61a33bb4-ca88-019a-2424-77e52ee67469",
+        "info": "Go-Car Medan -> Kualanamu",
+        "value": "92000"
+      },
+      {
+        "id": "98c3bfa3-c7da-ebf5-827f-5ed7e8571509",
+        "info": "Go-Car Adisucipto -> Hotel MMUGM",
+        "value": "21000"
+      },
+      {
+        "id": "a4996de8-37cc-de8e-d552-5cf6cbab23e9",
+        "info": "Go-Car DSSDI UGM -> Jalan Malioboro",
+        "value": "10000"
+      },
+      {
+        "id": "e7f59a05-ad8c-cc4f-e792-288656fd4de2",
+        "info": "Go-Car Hotel MMUGM -> Candi Prambanan",
+        "value": "40000"
+      },
+      {
+        "id": "775cbc46-f1b9-e7c3-76e1-658b6164066b",
+        "info": "Go-Car Candi Prambanan -> Plaza Ambarrukmo",
+        "value": "36000"
+      }
+    ]
+  },
+  {
+    "id": "1f0ce562-4742-39af-cb54-a0c37e103c83",
+    "fullname": "Ivan",
+    "expenses": [
+      {
+        "id": "1d704626-8a10-1bf8-af92-f28ec9bc865c",
+        "info": "Hotel MMUGM (2 malam)",
+        "value": "703250"
+      }
+    ]
+  },
+  {
+    "id": "734bc1e3-1499-732e-bbee-620187764159",
+    "fullname": "Kenichi",
+    "expenses": [
+      {
+        "id": "b9f08323-9adc-aa89-c728-a8741579d44a",
+        "info": "Go-Car Hotel MMUGM -> Adisucipto",
+        "value": "27000"
+      }
+    ]
+  }
+]

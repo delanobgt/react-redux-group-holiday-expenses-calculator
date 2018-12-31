@@ -9,7 +9,7 @@ class CreateExpense extends Component {
 
   state = {
     info: '',
-    value: 0
+    value: '0'
   }
 
   handleTextChange = name => e => {
@@ -21,7 +21,8 @@ class CreateExpense extends Component {
     const { person, createExpense } = this.props
     const { info, value } = this.state
     const cleanedInfo = info.trim()
-    const cleanedValue = value.replace(/^0+/g, '')
+    const cleanedValue = (value || '0').replace(/^0+/g, '')
+    console.log(value, cleanedValue)
     createExpense(person.id, { info: cleanedInfo, value: cleanedValue })
     this.setState({ info: '', value: 0 })
   }
@@ -44,6 +45,7 @@ class CreateExpense extends Component {
                     value={info}
                     onChange={this.handleTextChange('info')}
                     required={true}
+                    className="mb-2"
                   />
                 </Col>
                 <Col sm={4}>
@@ -53,6 +55,7 @@ class CreateExpense extends Component {
                     value={value}
                     onChange={this.handleTextChange('value')}
                     required={true}
+                    className="mb-2"
                   />
                 </Col>
                 <Col sm={2} className="text-right">
